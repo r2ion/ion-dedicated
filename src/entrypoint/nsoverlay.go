@@ -59,7 +59,7 @@ func (n *NSOverlay) Executable() string {
 }
 
 func (n *NSOverlay) Autoexec() string {
-	return filepath.Join(n.Path, "R2Northstar/mods/Northstar.CustomServers/mod/cfg/autoexec_ns_server.cfg")
+	return filepath.Join(n.Path, "R2Northstar/mods/Northstar.CustomServers/mod/cfg/autoexec_ns_dedicatedserver.cfg")
 }
 
 // TODO: rewrite this with more checks and individual file symlinks
@@ -85,7 +85,7 @@ func (n *NSOverlay) mergeTF(p string) error {
 }
 
 func (n *NSOverlay) mergeNS(p string) error {
-	if _, err := os.Stat(filepath.Join(p, "R2Northstar/mods/Northstar.CustomServers/mod/cfg/autoexec_ns_server.cfg")); err != nil {
+	if _, err := os.Stat(filepath.Join(p, "R2Northstar/mods/Northstar.CustomServers/mod/cfg/autoexec_ns_dedicatedserver.cfg")); err != nil {
 		return fmt.Errorf("northstar build missing server autoexec: %w", err)
 	}
 	for _, x := range []string{
@@ -113,7 +113,7 @@ func (n *NSOverlay) mergeNS(p string) error {
 			return err
 		}
 		switch filepath.ToSlash(r) {
-		case "R2Northstar/mods/Northstar.CustomServers/mod/cfg/autoexec_ns_server.cfg":
+		case "R2Northstar/mods/Northstar.CustomServers/mod/cfg/autoexec_ns_dedicatedserver.cfg":
 			return os.WriteFile(filepath.Join(n.Path, r), nil, 0666)
 		case "R2Northstar/placeholder_playerdata.pdata":
 			// northstar after v1.10.0 doesn't need this file anymore

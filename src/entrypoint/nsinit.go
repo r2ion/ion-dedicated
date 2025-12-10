@@ -102,7 +102,7 @@ func main() {
 	}
 	nsc := MergeConfig(
 		map[string]string{
-			// from R2Northstar/mods/Northstar.CustomServers/mod/cfg/autoexec_ns_server.cfg @ v1.3.0
+			// from R2Northstar/mods/Northstar.CustomServers/mod/cfg/autoexec_ns_dedicatedserver.cfg @ v1.3.0
 			"ns_server_name":                      "",
 			"ns_server_desc":                      "",
 			"ns_server_password":                  "",
