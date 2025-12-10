@@ -10,6 +10,7 @@ cd "$(dirname "$0")/.."
 seg_ever="$(cd src/entrypoint && . APKBUILD && echo "$pkgver")"
 seg_nsver="$(cd src/northstar && . APKBUILD && echo "$pkgver")"
 seg_tfver="$(cd src/northstar && . APKBUILD && echo "$pkgver_tf")"
+seg_ionver="$(cd src/northstar && . APKBUILD && echo "$pkgver_ion")"
 seg_git="$(git rev-parse --short HEAD)"
 seg_yymmdd="$(date --utc +%Y%m%d)"
 seg_rfc3339="$(date --utc --rfc-3339=seconds)"
@@ -21,12 +22,12 @@ for x in $*; do
     case $x in
     "stable")
         tags+=(
-            "${img}:${seg_ever}-tf${seg_tfver}-ns${seg_nsver}"
+            "${img}:${seg_ever}-tf${seg_tfver}-ns${seg_nsver}-ion${seg_ionver}"
             "${img}:${seg_ever}-tf${seg_tfver}"
         ) ;;
     "stable-git")
         tags+=(
-            "${img}:${seg_ever}.${seg_yymmdd}.git${seg_git}-tf${seg_tfver}-ns${seg_nsver}"
+            "${img}:${seg_ever}.${seg_yymmdd}.git${seg_git}-tf${seg_tfver}-ns${seg_nsver}-ion${seg_ionver}"
         ) ;;
     "dev-git")
         tags+=(
@@ -45,6 +46,7 @@ if [[ ${GITHUB_ACTIONS-} == "true" ]]; then
     echo "tags=$(IFS=","; echo "${tags[*]}")" >> $GITHUB_OUTPUT
     echo "ever=${seg_ever}" >> $GITHUB_OUTPUT
     echo "nsver=${seg_nsver}" >> $GITHUB_OUTPUT
+    echo "ionver=${seg_ionver}" >> $GITHUB_OUTPUT
     echo "tfver=${seg_tfver}" >> $GITHUB_OUTPUT
     echo "git=${seg_git}" >> $GITHUB_OUTPUT
     echo "yymmdd=${seg_yymmdd}" >> $GITHUB_OUTPUT

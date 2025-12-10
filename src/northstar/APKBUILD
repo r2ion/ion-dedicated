@@ -2,15 +2,16 @@
 pkgname=northstar
 pkgver=1.31.4_5
 pkgver_tf=2.0.11.0
-pkgver_filename="${pkgver%_*}"
+pkgver_ns="${pkgver%_*}"
 pkgrel=0
 pkgdesc="Northstar binaries and mods"
+pkgver_ion="${pkgver#*_}"
 
 url="https://github.com/sonny-tel/Ion"
 license="MIT"
 
 arch="x86_64"
-source="https://github.com/sonny-tel/Ion/releases/download/v${pkgver}/Ion.release.v${pkgver_filename}.zip"
+source="https://github.com/sonny-tel/Ion/releases/download/v${pkgver}/Ion.release.v${pkgver_ns}.zip"
 
 check() {
 	ls "$srcdir"
@@ -27,5 +28,5 @@ package() {
 	cp -r "$srcdir/." "$pkgdir/usr/lib/northstar/"
 }
 sha512sums="
-a039dbff343e9bea04a4ffac0473a7c912c3e3c1157357dca05b9f60881dce40abd05fd8d87418249b1f69b75f9fcd52dfa3dbbb7cea19c206d1751e9b16b7dc  Ion.release.v$pkgver_filename.zip
+a039dbff343e9bea04a4ffac0473a7c912c3e3c1157357dca05b9f60881dce40abd05fd8d87418249b1f69b75f9fcd52dfa3dbbb7cea19c206d1751e9b16b7dc  Ion.release.v$pkgver_ns.zip
 "
