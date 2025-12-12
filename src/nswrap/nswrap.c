@@ -906,7 +906,7 @@ int main(int argc, char **argv) {
     // init setproctitle and attempt to ensure there is a placeholder arg consisting of spaces
     for (const char *x = argv[argc - 1]; *x; x++) {
         if (*x != ' ') {
-            char **nargv = alloca(argc + 2*sizeof(char*));
+            char **nargv = alloca((argc + 2) * sizeof(char *));
             for (int i = 0; i < argc; i++) {
                 nargv[i] = argv[i];
             }
