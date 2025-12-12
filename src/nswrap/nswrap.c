@@ -903,28 +903,6 @@ int main(int argc, char **argv) {
         return 1;
     }
 
-#if 0
-    // init setproctitle and attempt to ensure there is a placeholder arg consisting of spaces
-    for (const char *x = argv[argc - 1]; *x; x++) {
-        if (*x != ' ') {
-            char **nargv = alloca((argc + 2) * sizeof(char *));
-            for (int i = 0; i < argc; i++) {
-                nargv[i] = argv[i];
-            }
-            nargv[argc] = "                                                                                                                                ";
-            nargv[argc+1] = NULL;
-            if (execve("/proc/self/exe", nargv, environ) == -1) {
-                ns_perror("warning: self-exec with additional space in argv for process title failed: execve");
-                argc++;
-            }
-            break;
-        }
-    }
-    argc--;
-    setproctitle(argv, NULL);
-    argv[argc] = NULL;
-#endif
-
     if (chdir(argv[1])) {
         ns_perror("error: chdir '%s'", argv[1]);
         return 1;
@@ -1145,10 +1123,6 @@ int main(int argc, char **argv) {
     };
 
     int fd_pty_slave = ns_ioproc_output_pty(&st_ioproc);
-
-    for (int i = 0; i < wine_argv_n; i++) {
-        ns_log("arg[%d] = '%s'", i, wine_argv[i]);
-    }
 
     pid_t wine_pid = fork();
     if (!wine_pid) {
