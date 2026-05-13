@@ -1,6 +1,6 @@
 # Maintainer: pg9182 <96569817+pg9182@users.noreply.github.com>
 pkgname=northstar
-pkgver=1.31.9.1
+pkgver=1.31.9.2
 pkgver_tf=2.0.11.0
 pkgver_ns="${pkgver%.*}"
 pkgrel=0
