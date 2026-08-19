@@ -446,7 +446,7 @@ Additional command-line arguments (including convars starting with `+`) can be p
 - **How do I override built-in mods?** <br/>
   You can extend the image with your changes as additional steps modifying `/usr/lib/northstar`. Alternatively, you can mount the mods read-only into `/usr/lib/northstar/R2Northstar/mods`, but this is not officially supported and may break at any time.
 - **How do I get old logs after a crash?** <br/>
-  With the default Docker configuration, if you add a name to the container and remove `--rm`, you will be able to used `docker logs` to view them. You can also use a log management solution like Loki (via promtail or the Docker driver). Consider adding `+spewlog_enable 0` to `NS_EXTRA_ARGUMENTS` to reduce the logspam.
+  With the default Docker configuration, if you add a name to the container and remove `--rm`, you will be able to use `docker logs` to view them. Ion crash reports (`nscrash*.log`) are printed to the container log before the container exits. You can also use a log management solution like Loki (via promtail or the Docker driver). Consider adding `+spewlog_enable 0` to `NS_EXTRA_ARGUMENTS` to reduce the logspam.
 - **How can I optimize the server and reduce the bandwidth required for running it?** <br/>
   Add `+net_compresspackets 1 +net_compresspackets_minsize 64 +sv_maxrate 127000` to `NS_EXTRA_ARGUMENTS`. The CPU overhead is neglegible.
 

@@ -5,9 +5,11 @@ import (
 	"bytes"
 	"errors"
 	"fmt"
+	"io"
 	"os"
 	"os/exec"
 	"os/signal"
+	"path/filepath"
 	"runtime"
 	"strconv"
 	"strings"
@@ -196,6 +198,7 @@ func main() {
 	}()
 
 	err = cmd.Run()
+	printCrashReports(os.Stderr, nso.Path)
 
 	if err != nil {
 		var ex *exec.ExitError
@@ -205,6 +208,36 @@ func main() {
 		}
 		fmt.Fprintf(os.Stderr, "Error: Failed to run northstar: %v.\n", err)
 		os.Exit(1)
+	}
+}
+
+// printCrashReports preserves text reports from the temporary game overlay by
+// copying them to the container log before the entrypoint exits.
+func printCrashReports(w io.Writer, gamePath string) {
+	pattern := filepath.Join(gamePath, "R2Northstar", "logs", "nscrash*.log")
+	paths, err := filepath.Glob(pattern)
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Warning: Failed to find Ion crash reports: %v.\n", err)
+		return
+	}
+
+	for _, path := range paths {
+		f, err := os.Open(path)
+		if err != nil {
+			fmt.Fprintf(os.Stderr, "Warning: Failed to open Ion crash report %q: %v.\n", path, err)
+			continue
+		}
+
+		name := filepath.Base(path)
+		fmt.Fprintf(w, "\n===== Ion crash report: %s =====\n", name)
+		if _, err := io.Copy(w, f); err != nil {
+			fmt.Fprintf(os.Stderr, "Warning: Failed to read Ion crash report %q: %v.\n", path, err)
+		}
+		fmt.Fprintf(w, "\n===== End Ion crash report: %s =====\n", name)
+
+		if err := f.Close(); err != nil {
+			fmt.Fprintf(os.Stderr, "Warning: Failed to close Ion crash report %q: %v.\n", path, err)
+		}
 	}
 }
 
