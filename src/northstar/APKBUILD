@@ -1,6 +1,6 @@
 # Maintainer: pg9182 <96569817+pg9182@users.noreply.github.com>
 pkgname=northstar
-pkgver=1.31.13.2
+pkgver=1.31.13.3
 pkgver_tf=2.0.11.0
 pkgver_ns="${pkgver%.*}"
 pkgrel=0
@@ -28,5 +28,5 @@ package() {
 	cp -r "$srcdir/." "$pkgdir/usr/lib/northstar/"
 }
 sha512sums="
-  81adc2e3a18ab38703c8eabb907077938b69107a4e0e59806e62dda0f65a4ec29e700900b75a02c08d38b8e9c1722aa1ea6590294b9653b3e55e9ab7a641b6c5 Ion.release.v$pkgver_ns.zip
+  06417f1f4d0df7c4d6fe0ebe040b5b8b49c124aec77bd74703d31f6e2b7ae9f2ab387780487ad85dc621820f8c7dcdb71395f60dae5875cabea9e1273cbf2119 Ion.release.v$pkgver_ns.zip
 "
